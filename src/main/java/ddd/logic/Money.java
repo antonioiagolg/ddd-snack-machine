@@ -17,6 +17,16 @@ public class Money extends ValueObject<Money>{
 	private final int fiveDollarCount;
 	private final int twentyDollarCount;
 	
+	public static Money add(Money aMoney, Money other) {
+		return new Money(
+				aMoney.oneCentCount + other.oneCentCount,
+				aMoney.tenCentCount + other.tenCentCount,
+				aMoney.quarterCount + other.quarterCount,
+				aMoney.oneDollarCount + other.oneDollarCount,
+				aMoney.fiveDollarCount + other.fiveDollarCount,
+				aMoney.twentyDollarCount + other.twentyDollarCount);
+	}
+	
 	public Money(int oneCentCount,
 			int tenCentCount,
 			int quarterCount,
