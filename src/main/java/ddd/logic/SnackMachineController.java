@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,7 +18,7 @@ public class SnackMachineController {
 	}
 	
 	@PutMapping("/{id}/moneyInTransaction/{coinOrNote}")
-	public void insertMoney(@PathVariable("id") long id, @PathVariable("coinOrNote") String coinOrNote) {
+	public void insertCoinOrNote(@PathVariable("id") long id, @PathVariable("coinOrNote") String coinOrNote) {
 		if(coinOrNote.equalsIgnoreCase("Cent"))
 			snackMachine.insertMoney(Money.Cent);
 		else if(coinOrNote.equalsIgnoreCase("TenCent"))
@@ -30,5 +31,15 @@ public class SnackMachineController {
 			snackMachine.insertMoney(Money.FiveDollar);
 		else if(coinOrNote.equalsIgnoreCase("TwentyDollar"))
 			snackMachine.insertMoney(Money.TwentyDollar);
+	}
+	
+	@PutMapping("/{id}/moneyInTransaction")
+	public void returnMoney(@PathVariable("id") long id) {
+		snackMachine.returnMoney();
+	}
+	
+	@PutMapping("/{id}/{slotNumber}")
+	public void buySnack(@PathVariable("id") long id, @PathVariable("slotNumber") int slotNumber) {
+		snackMachine.buySnack();
 	}
 }

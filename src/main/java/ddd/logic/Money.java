@@ -135,4 +135,12 @@ public class Money extends ValueObject<Money>{
 				this.twentyDollarCount * 20f;
 	}
 	
+	@Override
+	public String toString() {
+		if(getAmount() < 1) {
+			return "c" + getAmount() * 100; 
+		} else {
+			return "$" + getAmount();
+		}
+	}
 }

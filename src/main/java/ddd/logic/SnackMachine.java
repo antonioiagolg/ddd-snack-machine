@@ -44,8 +44,13 @@ public final class SnackMachine extends Entity {
 	public SnackMachineDto convertToSnackMachineDto() {
 		SnackMachineDto snackMachineDto = new SnackMachineDto();
 		snackMachineDto.setId(this.id);
-		snackMachineDto.setMoneyInside(this.moneyInside);
-		snackMachineDto.setMoneyInTransaction(this.moneyInTransaction);
+		snackMachineDto.setMoneyInTransaction(moneyInTransaction.getAmount());
+		snackMachineDto.setOneCentCount(moneyInside.getOneCentCount());
+		snackMachineDto.setTenCentCount(moneyInside.getTenCentCount());
+		snackMachineDto.setQuarterCount(moneyInside.getQuarterCount());
+		snackMachineDto.setOneDollarCount(moneyInside.getOneDollarCount());
+		snackMachineDto.setFiveDollarCount(moneyInside.getFiveDollarCount());
+		snackMachineDto.setTwentyDollarCount(moneyInside.getTwentyDollarCount());
 		
 		return snackMachineDto;
 	}
