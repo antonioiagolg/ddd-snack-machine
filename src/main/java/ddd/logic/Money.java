@@ -27,6 +27,40 @@ public class Money extends ValueObject<Money>{
 				aMoney.twentyDollarCount + other.twentyDollarCount);
 	}
 	
+	public boolean canAllocate(float amount) {
+		Money money = allocateCore(amount);
+		return money.getAmount() == amount;
+	}
+	
+	public Money allocate(float amount) {
+		if(!canAllocate(amount))
+			throw new IllegalStateException();
+		return allocateCore(amount);
+	}
+	
+	private Money allocateCore(float amount) {
+		int twentyDollarCount = Math.min((int) (amount / 20), this.twentyDollarCount);
+		amount = amount - twentyDollarCount * 20;
+		int fiveDollarCount = Math.min((int) (amount / 5), this.fiveDollarCount);
+		amount = amount - fiveDollarCount * 5;
+		int oneDollarCount = Math.min((int) amount, this.oneDollarCount);
+		amount = amount - oneDollarCount;
+		
+		int quarterCount = Math.min((int) (amount / 0.25f), this.quarterCount);
+		amount = amount - quarterCount * 0.25f;
+		int tenCentCount = Math.min((int) (amount / 0.10f), this.tenCentCount);
+		amount = amount - tenCentCount * 0.10f;
+		int oneCentCount = Math.min((int) (amount / 0.01f), this.oneCentCount);
+		amount = amount - oneCentCount * 0.01f;
+		
+		return new Money(oneCentCount,
+				tenCentCount,
+				quarterCount,
+				oneDollarCount,
+				fiveDollarCount,
+				twentyDollarCount);
+	}
+	
 	public Money(int oneCentCount,
 			int tenCentCount,
 			int quarterCount,

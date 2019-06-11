@@ -1,8 +1,14 @@
 package ddd.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class SnackMachineDto {
@@ -17,6 +23,10 @@ public class SnackMachineDto {
 	private int fiveDollarCount;
 	private int twentyDollarCount;
 	private float moneyInTransaction;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "snackMachineId")
+	private List<SlotDto> slotDtoList;
 	
 	public long getId() {
 		return id;
@@ -75,25 +85,23 @@ public class SnackMachineDto {
 				this.oneDollarCount,
 				this.fiveDollarCount,
 				this.twentyDollarCount));
-		snackMachine.setMoneyInTransaction(this.convertMoneyInTransactionToMoney());
+		snackMachine.setMoneyInTransaction(this.moneyInTransaction);
+		List<Slot> slotList = new ArrayList<>();
+		for(SlotDto slotDto: slotDtoList) {
+			slotList.add(slotDto.convertToSlot());
+		}
+		snackMachine.setSlots(slotList);
 		return snackMachine;
 	}
 	
-	public Money convertMoneyInTransactionToMoney() {
-		
-		int cents = (int) ((this.moneyInTransaction - (Math.ceil(this.moneyInTransaction))) * 100);
-		
-		int twentyDollarCount = (int) Math.ceil(this.moneyInTransaction) / 20;
-		int restTwentyDollarCount = (int) Math.ceil(this.moneyInTransaction) % 20;
-		int fiveDollarCount = restTwentyDollarCount / 5;
-		int oneDollarCount = restTwentyDollarCount % 5;
-		
-		int quarterCount = cents / 25;
-		int restQuarterCount = cents % 25;
-		int tenCentCount = restQuarterCount / 10;
-		int centCount = tenCentCount % 10;
-		
-		return new Money(centCount, tenCentCount, quarterCount, oneDollarCount, fiveDollarCount, twentyDollarCount);
+	public List<SlotDto> getSlotDtoList() {
+		return slotDtoList;
 	}
+	
+	public void setSlotDtoList(List<SlotDto> slotDtoList) {
+		this.slotDtoList = slotDtoList;
+	}
+	
+	
 	
 }

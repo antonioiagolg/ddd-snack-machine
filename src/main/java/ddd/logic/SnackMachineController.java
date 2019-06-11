@@ -41,7 +41,8 @@ public class SnackMachineController {
 		else if(coinOrNote.equalsIgnoreCase("TwentyDollar"))
 			snackMachine.insertMoney(Money.TwentyDollar);
 		
-		snackMachineRepository.save(snackMachine.convertToSnackMachineDto());
+		snackMachineDto = snackMachine.convertToSnackMachineDto();
+		snackMachineRepository.save(snackMachineDto);
 	}
 	
 	@PutMapping("/{id}/moneyInTransaction")
