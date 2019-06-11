@@ -67,4 +67,33 @@ public class SnackMachineDto {
 		this.moneyInTransaction = moneyInTransaction;
 	}
 	
+	public SnackMachine convertToSnackMachine() {
+		SnackMachine snackMachine = new SnackMachine();
+		snackMachine.setMoneyInside(new Money(this.oneCentCount,
+				this.tenCentCount,
+				this.quarterCount,
+				this.oneDollarCount,
+				this.fiveDollarCount,
+				this.twentyDollarCount));
+		snackMachine.setMoneyInTransaction(this.convertMoneyInTransactionToMoney());
+		return snackMachine;
+	}
+	
+	public Money convertMoneyInTransactionToMoney() {
+		
+		int cents = (int) ((this.moneyInTransaction - (Math.ceil(this.moneyInTransaction))) * 100);
+		
+		int twentyDollarCount = (int) Math.ceil(this.moneyInTransaction) / 20;
+		int restTwentyDollarCount = (int) Math.ceil(this.moneyInTransaction) % 20;
+		int fiveDollarCount = restTwentyDollarCount / 5;
+		int oneDollarCount = restTwentyDollarCount % 5;
+		
+		int quarterCount = cents / 25;
+		int restQuarterCount = cents % 25;
+		int tenCentCount = restQuarterCount / 10;
+		int centCount = tenCentCount % 10;
+		
+		return new Money(centCount, tenCentCount, quarterCount, oneDollarCount, fiveDollarCount, twentyDollarCount);
+	}
+	
 }

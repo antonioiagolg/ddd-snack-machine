@@ -1,5 +1,6 @@
 package ddd.logic;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -10,15 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/snackmachines")
 public class SnackMachineController {
+	
+	@Autowired
+	SnackMachineRepository snackMachineRepository;
+	
 	static SnackMachine snackMachine = new SnackMachine();
 	
 	@GetMapping("/{id}")
 	public SnackMachineDto getSnackMachine(@PathVariable("id") long id) {
-		return snackMachine.convertToSnackMachineDto();
+		return snackMachineRepository.findById(id).orElse(null);
 	}
 	
 	@PutMapping("/{id}/moneyInTransaction/{coinOrNote}")
 	public void insertCoinOrNote(@PathVariable("id") long id, @PathVariable("coinOrNote") String coinOrNote) {
+		
+		SnackMachineDto snackMachineDto = snackMachineRepository.findById(id).orElse(null);
+		SnackMachine snackMachine = snackMachineDto.convertToSnackMachine();
+		
 		if(coinOrNote.equalsIgnoreCase("Cent"))
 			snackMachine.insertMoney(Money.Cent);
 		else if(coinOrNote.equalsIgnoreCase("TenCent"))
@@ -31,15 +40,25 @@ public class SnackMachineController {
 			snackMachine.insertMoney(Money.FiveDollar);
 		else if(coinOrNote.equalsIgnoreCase("TwentyDollar"))
 			snackMachine.insertMoney(Money.TwentyDollar);
+		
+		snackMachineRepository.save(snackMachine.convertToSnackMachineDto());
 	}
 	
 	@PutMapping("/{id}/moneyInTransaction")
 	public void returnMoney(@PathVariable("id") long id) {
+		
+		SnackMachineDto snackMachineDto = snackMachineRepository.findById(id).orElse(null);
+		SnackMachine snackMachine = snackMachineDto.convertToSnackMachine();
+		
 		snackMachine.returnMoney();
+		
+		snackMachineRepository.save(snackMachine.convertToSnackMachineDto());
 	}
 	
 	@PutMapping("/{id}/{slotNumber}")
 	public void buySnack(@PathVariable("id") long id, @PathVariable("slotNumber") int slotNumber) {
-		snackMachine.buySnack();
+		SnackMachineDto snackMachineDto = snackMachineRepository.findById(id).orElse(null);
+		SnackMachine snackMachine = snackMachineDto.convertToSnackMachine();
+		snackMachineRepository.save(snackMachine.convertToSnackMachineDto());
 	}
 }
