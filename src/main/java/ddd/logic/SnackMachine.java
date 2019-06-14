@@ -51,6 +51,13 @@ public final class SnackMachine extends AggregateRoot {
 				throw new IllegalStateException();
 			}
 			slot.setSnackPile(slot.getSnackPile().subtractOne());
+			Money change = moneyInside.allocate(moneyInTransaction - slot.getSnackPile().getPrice());
+			
+			if(change.getAmount() < moneyInTransaction - slot.getSnackPile().getPrice()) {
+				throw new IllegalStateException();
+			}
+			
+			moneyInside = moneyInside.subtract(change);
 			moneyInTransaction = 0;
 		}
 	}

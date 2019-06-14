@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
+import javax.persistence.Transient;
 
 @Entity
 public class SnackMachineDto {
@@ -27,6 +29,24 @@ public class SnackMachineDto {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "snackMachineId")
 	private List<SlotDto> slotDtoList;
+	
+	@Transient
+	private float amount;
+	
+	public float getAmount() {
+		return amount;
+	}
+	
+	@PostLoad
+	public void setAmount() {
+		amount = this.oneCentCount * 0.01f +
+				this.tenCentCount * 0.10f +
+				this.quarterCount * 0.25f +
+				this.oneDollarCount * 1f +
+				this.fiveDollarCount * 5f +
+				this.twentyDollarCount * 20f;
+				
+	}
 	
 	public long getId() {
 		return id;
@@ -79,6 +99,7 @@ public class SnackMachineDto {
 	
 	public SnackMachine convertToSnackMachine() {
 		SnackMachine snackMachine = new SnackMachine();
+		snackMachine.setId(id);
 		snackMachine.setMoneyInside(new Money(this.oneCentCount,
 				this.tenCentCount,
 				this.quarterCount,
