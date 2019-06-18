@@ -1,5 +1,8 @@
 package ddd.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +18,14 @@ public class SnackMachineController {
 	@Autowired
 	SnackMachineRepository snackMachineRepository;
 	
-	static SnackMachine snackMachine = new SnackMachine();
+	@GetMapping
+	public List<SnackMachineDto> getSnackMachines() {
+		List<SnackMachineDto> list = new ArrayList<>();
+		
+		snackMachineRepository.findAll().forEach(list::add);
+		
+		return list;
+	}
 	
 	@GetMapping("/{id}")
 	public SnackMachineDto getSnackMachine(@PathVariable("id") long id) {
@@ -60,6 +70,7 @@ public class SnackMachineController {
 	public void buySnack(@PathVariable("id") long id, @PathVariable("slotNumber") int slotNumber) {
 		SnackMachineDto snackMachineDto = snackMachineRepository.findById(id).orElse(null);
 		SnackMachine snackMachine = snackMachineDto.convertToSnackMachine();
+		snackMachine.buySnack(slotNumber);
 		snackMachineRepository.save(snackMachine.convertToSnackMachineDto());
 	}
 }

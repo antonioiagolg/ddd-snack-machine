@@ -39,7 +39,7 @@ public class SnackMachineTest {
 	@Test
 	public void buySnack_trades_inserted_money_for_a_snack() {
 		SnackMachine snackMachine = new SnackMachine();
-		SnackPile snackPile = new SnackPile(new Snack("Some snack"), 10, 1);
+		SnackPile snackPile = new SnackPile(Snack.Chocolate, 10, 1);
 		snackMachine.loadSnacks(1, snackPile);
 		snackMachine.insertMoney(Dollar);
 		
@@ -55,14 +55,14 @@ public class SnackMachineTest {
 	@Test(expected = IllegalStateException.class)
 	public void load_slot_negative_quantity_snackPile() {
 		SnackMachine snackMachine = new SnackMachine();
-		SnackPile snackPile = new SnackPile(new Snack("Some snack"), -10, 1);
+		SnackPile snackPile = new SnackPile(Snack.Chocolate, -10, 1);
 		snackMachine.loadSnacks(1, snackPile);
 	}
 	
 	@Test(expected = IllegalStateException.class)
 	public void load_slot_negative_price_snackPile() {
 		SnackMachine snackMachine = new SnackMachine();
-		SnackPile snackPile = new SnackPile(new Snack("Some snack"), 10, -1);
+		SnackPile snackPile = new SnackPile(Snack.Chocolate, 10, -1);
 		snackMachine.loadSnacks(1, snackPile);
 	}
 	
@@ -75,7 +75,7 @@ public class SnackMachineTest {
 	@Test(expected = IllegalStateException.class)
 	public void cannot_make_purchaase_if_not_enough_money_inserted() {
 		SnackMachine snackMachine = new SnackMachine();
-		snackMachine.loadSnacks(1, new SnackPile(new Snack("Some Snack"), 1, 2));
+		snackMachine.loadSnacks(1, new SnackPile(Snack.Chocolate, 1, 2));
 		snackMachine.insertMoney(Dollar);
 		snackMachine.buySnack(1);
 	}
@@ -97,7 +97,7 @@ public class SnackMachineTest {
 	@Test
 	public void after_purchase_change_is_returned() {
 		SnackMachine snackMachine = new SnackMachine();
-		snackMachine.loadSnacks(1, new SnackPile(new Snack("Some snack"), 1, 0.5f));
+		snackMachine.loadSnacks(1, new SnackPile(Snack.Chocolate, 1, 0.5f));
 		snackMachine.loadMoney(new Money(0,10,0,0,0,0));
 		
 		snackMachine.insertMoney(Dollar);
@@ -111,7 +111,7 @@ public class SnackMachineTest {
 	@Test(expected = IllegalStateException.class)
 	public void cannot_buy_snack_if_not_enough_change() {
 		SnackMachine snackMachine = new SnackMachine();
-		snackMachine.loadSnacks(1, new SnackPile(new Snack("Some snack"), 1, 0.5f));
+		snackMachine.loadSnacks(1, new SnackPile(Snack.Chocolate, 1, 0.5f));
 		snackMachine.insertMoney(Dollar);
 		snackMachine.buySnack(1);
 	}

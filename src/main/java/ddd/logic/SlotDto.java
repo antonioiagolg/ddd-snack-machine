@@ -1,5 +1,6 @@
 package ddd.logic;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,7 +15,7 @@ public class SlotDto {
 	private int quantity;
 	private float price;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private SnackDto snackDto;
 	private int position;
 	

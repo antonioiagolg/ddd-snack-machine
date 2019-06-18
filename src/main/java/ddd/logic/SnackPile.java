@@ -2,7 +2,7 @@ package ddd.logic;
 
 public class SnackPile extends ValueObject<SnackPile>{
 	
-	public static SnackPile None = new SnackPile(null, 0, 0);
+	public static SnackPile None = new SnackPile(Snack.None, 0, 0);
 	
 	private Snack snack;
 	private int quantity;
