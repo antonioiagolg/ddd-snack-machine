@@ -1,4 +1,6 @@
-package ddd.logic;
+package ddd.logic.snackmachine;
+
+import ddd.logic.common.AggregateRoot;
 
 public class Snack extends AggregateRoot {
 	

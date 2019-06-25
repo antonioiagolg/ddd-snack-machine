@@ -1,4 +1,6 @@
-package ddd.logic;
+package ddd.logic.snackmachine;
+
+import ddd.logic.common.Entity;
 
 public class Slot extends Entity {
 	private SnackMachine snackMachine;

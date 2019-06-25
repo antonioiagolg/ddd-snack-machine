@@ -1,4 +1,6 @@
-package ddd.logic;
+package ddd.logic.snackmachine;
+
+import ddd.logic.common.ValueObject;
 
 public class SnackPile extends ValueObject<SnackPile>{
 	

@@ -1,4 +1,6 @@
-package ddd.logic;
+package ddd.logic.sharedkernel;
+
+import ddd.logic.common.ValueObject;
 
 public class Money extends ValueObject<Money>{
 	

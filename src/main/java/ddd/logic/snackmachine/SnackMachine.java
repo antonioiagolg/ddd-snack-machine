@@ -1,9 +1,12 @@
-package ddd.logic;
-import static ddd.logic.Money.None;
+package ddd.logic.snackmachine;
+import static ddd.logic.sharedkernel.Money.None;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import ddd.logic.common.AggregateRoot;
+import ddd.logic.sharedkernel.Money;
 public final class SnackMachine extends AggregateRoot {
 	
 	private Money moneyInside;

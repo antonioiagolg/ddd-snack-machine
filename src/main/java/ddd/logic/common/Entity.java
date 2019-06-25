@@ -1,4 +1,4 @@
-package ddd.logic;
+package ddd.logic.common;
 
 public abstract class Entity {
 	
@@ -35,7 +35,7 @@ public abstract class Entity {
 		return this.id;
 	}
 	
-	protected void setId(long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 }

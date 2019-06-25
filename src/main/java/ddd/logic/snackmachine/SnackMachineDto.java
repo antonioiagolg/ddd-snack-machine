@@ -1,4 +1,4 @@
-package ddd.logic;
+package ddd.logic.snackmachine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.PostLoad;
 import javax.persistence.Transient;
+
+import ddd.logic.sharedkernel.Money;
 
 @Entity
 public class SnackMachineDto {

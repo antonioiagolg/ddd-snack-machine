@@ -1,4 +1,4 @@
-package ddd.logic;
+package ddd.logic.snackmachine;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

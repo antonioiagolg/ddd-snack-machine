@@ -1,4 +1,4 @@
-package ddd.logic;
+package ddd.logic.snackmachine;
 
 import org.springframework.data.repository.CrudRepository;
 

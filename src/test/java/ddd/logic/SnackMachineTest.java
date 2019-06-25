@@ -1,12 +1,17 @@
 package ddd.logic;
 
-import static ddd.logic.Money.Dollar;
-import static ddd.logic.Money.Cent;
-import static ddd.logic.Money.None;
-import static ddd.logic.Money.Quarter;
+import static ddd.logic.sharedkernel.Money.Cent;
+import static ddd.logic.sharedkernel.Money.Dollar;
+import static ddd.logic.sharedkernel.Money.None;
+import static ddd.logic.sharedkernel.Money.Quarter;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import ddd.logic.sharedkernel.Money;
+import ddd.logic.snackmachine.Snack;
+import ddd.logic.snackmachine.SnackMachine;
+import ddd.logic.snackmachine.SnackPile;
 
 public class SnackMachineTest {
 	
