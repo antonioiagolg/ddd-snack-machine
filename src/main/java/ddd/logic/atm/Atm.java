@@ -71,6 +71,8 @@ public class Atm extends AggregateRoot {
 		atmDto.setOneDollarCount(moneyInside.getOneDollarCount());
 		atmDto.setFiveDollarCount(moneyInside.getFiveDollarCount());
 		atmDto.setTwentyDollarCount(moneyInside.getTwentyDollarCount());
+		atmDto.setDomainEvents(getDomainEvents());
+		
 		
 		return atmDto;
 	}

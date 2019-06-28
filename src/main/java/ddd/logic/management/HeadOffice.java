@@ -1,7 +1,9 @@
 package ddd.logic.management;
 
+import ddd.logic.atm.Atm;
 import ddd.logic.common.AggregateRoot;
 import ddd.logic.sharedkernel.Money;
+import ddd.logic.snackmachine.SnackMachine;
 
 public class HeadOffice extends AggregateRoot {
 	
@@ -37,5 +39,15 @@ public class HeadOffice extends AggregateRoot {
 		headOfficeDto.setTwentyDollarCount(cash.getTwentyDollarCount());
 		
 		return headOfficeDto;
+	}
+	
+	public void unloadCashFromSnackMachine(SnackMachine snackMachine) {
+		Money money = snackMachine.unloadMoney();
+		cash = cash.add(money);
+	}
+	
+	public void loadCashToAtm(Atm atm) {
+		atm.loadMoney(cash);
+		cash = Money.None;
 	}
 }

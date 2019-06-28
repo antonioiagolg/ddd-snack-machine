@@ -10,7 +10,7 @@ public class HeadOfficeInstance {
 	private HeadOfficeRepository headOfficeRepository;
 	private static long headOfficeId = 1;
 	
-	private HeadOfficeDto getInstance() {
+	public HeadOfficeDto getInstance() {
 		return headOfficeRepository.findById(headOfficeId).orElse(null);
 	}
 }

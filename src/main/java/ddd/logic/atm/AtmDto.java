@@ -1,10 +1,16 @@
 package ddd.logic.atm;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.PostLoad;
 import javax.persistence.Transient;
+
+import org.springframework.context.ApplicationEvent;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ddd.logic.sharedkernel.Money;
 
@@ -24,6 +30,9 @@ public class AtmDto {
 	
 	@Transient
 	private float amount;
+	@Transient
+	@JsonIgnore
+	private List<ApplicationEvent> domainEvents;
 
 	public long getId() {
 		return id;
@@ -111,6 +120,18 @@ public class AtmDto {
 		atm.setMoneyInside(new Money(oneCentCount,tenCentCount,quarterCount, oneDollarCount, fiveDollarCount,twentyDollarCount));
 		
 		return atm;
+	}
+	
+	public void setDomainEvents(List<ApplicationEvent> domainEvents) {
+		this.domainEvents = domainEvents;
+	}
+	
+	public void clearEvents() {
+		domainEvents.clear();
+	}
+	
+	public List<ApplicationEvent> getDomainEvents() {
+		return this.domainEvents;
 	}
 	
 	

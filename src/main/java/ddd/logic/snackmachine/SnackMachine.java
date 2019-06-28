@@ -134,4 +134,14 @@ public final class SnackMachine extends AggregateRoot {
 				.orElse(null);
 	}
 
+	public Money unloadMoney() {
+		
+		if(moneyInTransaction > 0)
+			throw new IllegalStateException();
+		
+		Money money = moneyInside;
+		moneyInside = Money.None;
+		return money;
+	}
+
 }
